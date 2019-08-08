@@ -122,6 +122,7 @@ void STDCALL SetResources(
     thrMax = ncores;
   else
     thrMax = min(maxThreadsIn, ncores);
+  thrMax = max(1, thrMax);
 
   // For simplicity we won't vary the amount of memory per thread
   // in the small and large versions.
@@ -138,8 +139,8 @@ void STDCALL SetResources(
   {
     // We don't even have enough memory for only small threads.
     // We'll limit the number of threads.
-    noOfThreads = static_cast<int>(memMaxMB / 
-      static_cast<double>(THREADMEM_SMALL_MAX_MB));
+    noOfThreads = max(1, static_cast<int>(memMaxMB / 
+      static_cast<double>(THREADMEM_SMALL_MAX_MB)));
     noOfLargeThreads = 0;
     noOfSmallThreads = noOfThreads;
   }
@@ -168,6 +169,11 @@ void STDCALL SetResources(
     memory.Resize(static_cast<unsigned>(noOfThreads),
       DDS_TT_SMALL, THREADMEM_SMALL_DEF_MB, THREADMEM_SMALL_MAX_MB);
 
+  if (memory.NumThreads() < 1)
+  {
+    cout << "Critical Error Init.cpp. 0 threads available." << endl;
+    exit(1);
+  }
   threadMgr.Reset(noOfThreads);
 
   InitDebugFiles();

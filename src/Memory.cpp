@@ -103,7 +103,7 @@ ThreadData * Memory::GetPtr(const unsigned thrId)
 {
   if (thrId >= nThreads)
   {
-    cout << "Memory::GetPtr: " << thrId << " vs. " << nThreads << endl;
+    cout << "Critical Error in Memory::GetPtr: thrId(" << thrId << ") should be < nThreads(" << nThreads << ")." << endl;
     exit(1);
   }
   return memory[thrId];
