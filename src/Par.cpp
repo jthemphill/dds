@@ -7,7 +7,7 @@
    See LICENSE and README.
 */
 
-
+#include <cstdio>
 #include <stdexcept>
 #include <algorithm>
 #include <string.h>
