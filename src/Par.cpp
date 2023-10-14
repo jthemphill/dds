@@ -1342,13 +1342,13 @@ int STDCALL SidesPar(
       if (parm[i].contracts[k].underTricks > 0)
       {
         /* Sacrifice */
-        sprintf(buff, "-%d", parm[i].contracts[k].underTricks);
+        snprintf(buff, sizeof(buff), "-%d", parm[i].contracts[k].underTricks);
         strcat(sidesRes[i].contracts[k], buff);
       }
       else if (parm[i].contracts[k].overTricks > 0)
       {
         /* Make */
-        sprintf(buff, "+%d", parm[i].contracts[k].overTricks);
+        snprintf(buff, sizeof(buff), "+%d", parm[i].contracts[k].overTricks);
         strcat(sidesRes[i].contracts[k], buff);
       }
     }
